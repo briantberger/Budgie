@@ -4,6 +4,7 @@ import org.junit.Test
 
 import org.junit.Assert.*
 import java.math.BigDecimal
+import java.time.LocalDate
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -18,8 +19,8 @@ class ExampleUnitTest {
 
     @Test
     fun purchases_areEqual() {
-        val purchase1 = Purchase("Amazon", BigDecimal("15.00"))
-        val purchase2 = Purchase("Amazon", BigDecimal("15.00"))
+        val purchase1 = Purchase("Amazon", BigDecimal("15.00"), LocalDate.now())
+        val purchase2 = Purchase("Amazon", BigDecimal("15.00"), LocalDate.now())
         assertEquals(purchase1, purchase2);
     }
 }

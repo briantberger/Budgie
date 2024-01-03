@@ -5,6 +5,8 @@ import org.junit.Test
 import org.junit.Assert.*
 import org.junit.Before
 import java.math.BigDecimal
+import java.text.DateFormat
+import java.time.LocalDate
 
 class PurchasesTests {
     lateinit var groceryPurchases: Purchases
@@ -23,7 +25,7 @@ class PurchasesTests {
 
     @Test
     fun addOnePurchase() {
-        val saveOnPurchase: Purchase = Purchase("Save-On-Foods", BigDecimal("48.50"))
+        val saveOnPurchase: Purchase = Purchase("Save-On-Foods", BigDecimal("48.50"), LocalDate.parse("2023-01-01"))
         groceryPurchases.addPurchase(saveOnPurchase)
         assertEquals(1, groceryPurchases.purchases.size)
         assertEquals(BigDecimal("48.50"), groceryPurchases.getGrandTotal())
@@ -31,8 +33,8 @@ class PurchasesTests {
 
     @Test
     fun addTwoPurchases() {
-        val saveOnPurchase = Purchase("Save-On-Foods", BigDecimal("48.50"))
-        val urbanFarePurchase = Purchase("Urban Fare", BigDecimal("21.50"))
+        val saveOnPurchase = Purchase("Save-On-Foods", BigDecimal("48.50"), LocalDate.parse("2023-01-01"))
+        val urbanFarePurchase = Purchase("Urban Fare", BigDecimal("21.50"), LocalDate.parse("2023-01-01"))
         groceryPurchases.addPurchase(saveOnPurchase)
         groceryPurchases.addPurchase(urbanFarePurchase)
 
@@ -44,8 +46,8 @@ class PurchasesTests {
 
     @Test
     fun addTwoIdenticalPurchases() {
-        val amazonPrimePurchase1 = Purchase("Amazon", BigDecimal("9.99"))
-        val amazonPrimePurchase2 = Purchase("Amazon", BigDecimal("9.99"))
+        val amazonPrimePurchase1 = Purchase("Amazon", BigDecimal("9.99"), LocalDate.parse("2023-01-01"))
+        val amazonPrimePurchase2 = Purchase("Amazon", BigDecimal("9.99"), LocalDate.parse("2023-02-01"))
         assertEquals(amazonPrimePurchase2, amazonPrimePurchase1)
 
         groceryPurchases.addPurchase(amazonPrimePurchase1)
@@ -59,7 +61,7 @@ class PurchasesTests {
 
     @Test
     fun deleteOnePurchase() {
-        val saveOnPurchase: Purchase = Purchase("Save-On-Foods", BigDecimal("48.50"))
+        val saveOnPurchase: Purchase = Purchase("Save-On-Foods", BigDecimal("48.50"), LocalDate.parse("2023-01-01"))
         groceryPurchases.addPurchase(saveOnPurchase)
         assertEquals(1, groceryPurchases.purchases.size)
         assertEquals(BigDecimal("48.50"), groceryPurchases.getGrandTotal())
@@ -71,8 +73,8 @@ class PurchasesTests {
 
     @Test
     fun deleteOneIdenticalPurchase() {
-        val amazonPrimePurchase1 = Purchase("Amazon", BigDecimal("9.99"))
-        val amazonPrimePurchase2 = Purchase("Amazon", BigDecimal("9.99"))
+        val amazonPrimePurchase1 = Purchase("Amazon", BigDecimal("9.99"), LocalDate.parse("2023-01-01"))
+        val amazonPrimePurchase2 = Purchase("Amazon", BigDecimal("9.99"), LocalDate.parse("2023-02-01"))
         assertEquals(amazonPrimePurchase2, amazonPrimePurchase1)
 
         groceryPurchases.addPurchase(amazonPrimePurchase1)

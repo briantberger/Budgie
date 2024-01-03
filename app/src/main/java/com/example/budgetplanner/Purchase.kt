@@ -1,11 +1,12 @@
 package com.example.budgetplanner
 
 import java.math.BigDecimal
-import java.text.DecimalFormat
+import java.time.LocalDate
 
-class Purchase (
+class Purchase(
     val vendor: String,
-    val price: BigDecimal
+    val price: BigDecimal,
+    val date: LocalDate
     ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
