@@ -3,6 +3,7 @@ package com.example.budgetplanner
 import org.junit.Test
 
 import org.junit.Assert.*
+import java.math.BigDecimal
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -17,8 +18,8 @@ class ExampleUnitTest {
 
     @Test
     fun purchases_areEqual() {
-        val purchase1 = Purchase("Amazon", 15.00)
-        val purchase2 = Purchase("Amazon", 15.00)
+        val purchase1 = Purchase("Amazon", BigDecimal("15.00"))
+        val purchase2 = Purchase("Amazon", BigDecimal("15.00"))
         assertEquals(purchase1, purchase2);
     }
 }
