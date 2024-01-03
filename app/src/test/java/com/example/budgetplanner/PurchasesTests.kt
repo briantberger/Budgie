@@ -94,4 +94,41 @@ class PurchasesTests {
         assertTrue(groceryPurchases.purchases.contains(amazonPrimePurchase1))
     }
 
+    @Test
+    fun getBasicMonthlyBreakdown() {
+        val amazonPrimePurchase1 = Purchase("Amazon", BigDecimal("9.99"), LocalDate.parse("2023-01-01"))
+        val amazonPrimePurchase2 = Purchase("Amazon", BigDecimal("9.99"), LocalDate.parse("2023-02-01"))
+
+        groceryPurchases.addPurchase(amazonPrimePurchase1)
+        groceryPurchases.addPurchase(amazonPrimePurchase2)
+
+        val actual = groceryPurchases.getMonthlyTotals()
+
+        assertTrue(actual.containsKey("2023JANUARY"))
+        assertTrue(actual.containsKey("2023FEBRUARY"))
+        assertEquals(actual["2023JANUARY"], BigDecimal("9.99"))
+        assertEquals(actual["2023FEBRUARY"], BigDecimal("9.99"))
+    }
+
+    @Test
+    fun getComplexMonthlyBreakdown() {
+        val amazonPrimePurchase1 = Purchase("Amazon", BigDecimal("9.99"), LocalDate.parse("2023-01-01"))
+        val amazonPrimePurchase2 = Purchase("Amazon", BigDecimal("9.99"), LocalDate.parse("2023-02-01"))
+        val saveOnPurchase = Purchase("Save-On-Foods", BigDecimal("48.50"), LocalDate.parse("2023-01-01"))
+        val urbanFarePurchase = Purchase("Urban Fare", BigDecimal("21.50"), LocalDate.parse("2023-02-01"))
+
+        groceryPurchases.addPurchase(amazonPrimePurchase1)
+        groceryPurchases.addPurchase(amazonPrimePurchase2)
+        groceryPurchases.addPurchase(saveOnPurchase)
+        groceryPurchases.addPurchase(urbanFarePurchase)
+
+        val actual = groceryPurchases.getMonthlyTotals()
+
+        assertTrue(actual.containsKey("2023JANUARY"))
+        assertTrue(actual.containsKey("2023FEBRUARY"))
+
+        assertEquals(actual["2023JANUARY"], BigDecimal("58.49"))
+        assertEquals(actual["2023FEBRUARY"], BigDecimal("31.49"))
+    }
+
 }
