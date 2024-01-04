@@ -60,6 +60,25 @@ class PurchasesTests {
     }
 
     @Test
+    fun addPurchasesAndSeeTheyAreSorted() {
+        val purchase1 = Purchase("store1", BigDecimal("5.00"), LocalDate.parse("2023-01-01"))
+        val purchase2 = Purchase("store2", BigDecimal("10.00"), LocalDate.parse("2023-01-02"))
+        val purchase3 = Purchase("store3", BigDecimal("15.00"), LocalDate.parse("2023-01-03"))
+        val purchase4 = Purchase("store4", BigDecimal("20.00"), LocalDate.parse("2023-01-04"))
+        val purchase5 = Purchase("store5", BigDecimal("25.00"), LocalDate.parse("2023-01-05"))
+
+        val expected = arrayListOf(purchase1, purchase2, purchase3, purchase4, purchase5)
+
+        groceryPurchases.addPurchase(purchase1)
+        groceryPurchases.addPurchase(purchase2)
+        groceryPurchases.addPurchase(purchase5)
+        groceryPurchases.addPurchase(purchase4)
+        groceryPurchases.addPurchase(purchase3)
+
+        assertEquals(expected, groceryPurchases.purchases)
+    }
+
+    @Test
     fun deleteOnePurchase() {
         val saveOnPurchase: Purchase = Purchase("Save-On-Foods", BigDecimal("48.50"), LocalDate.parse("2023-01-01"))
         groceryPurchases.addPurchase(saveOnPurchase)
@@ -131,4 +150,23 @@ class PurchasesTests {
         assertEquals(actual["2023FEBRUARY"], BigDecimal("31.49"))
     }
 
+    @Test
+    fun getWeeklyBreakdown() {
+        val amazonPrimePurchase1 = Purchase("Amazon", BigDecimal("9.99"), LocalDate.parse("2024-01-03"))
+        val amazonPrimePurchase2 = Purchase("Amazon", BigDecimal("9.99"), LocalDate.parse("2024-01-02"))
+        val saveOnPurchase = Purchase("Save-On-Foods", BigDecimal("48.50"), LocalDate.parse("2023-12-25"))
+        val urbanFarePurchase = Purchase("Urban Fare", BigDecimal("21.50"), LocalDate.parse("2023-12-24"))
+
+        groceryPurchases.addPurchase(amazonPrimePurchase1)
+        groceryPurchases.addPurchase(amazonPrimePurchase2)
+        groceryPurchases.addPurchase(saveOnPurchase)
+        groceryPurchases.addPurchase(urbanFarePurchase)
+
+        val actual = groceryPurchases.getWeeklyTotals()
+        val expected = hashMapOf(Pair<String, BigDecimal>("2024-01-03", BigDecimal("19.98")), Pair<String, BigDecimal>("2023-12-27", BigDecimal("70.00")))
+
+        for (pair in expected) {
+            assertTrue(actual.containsKey(pair.key) && actual[pair.key] == pair.value)
+        }
+    }
 }
