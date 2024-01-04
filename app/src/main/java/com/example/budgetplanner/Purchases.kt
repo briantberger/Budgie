@@ -56,7 +56,8 @@ class Purchases (
         var i = purchases.size - 1
         var key = currentObservedWeek.toString()
 
-
+        // iterate backwards because the most recent transaction will be last
+        // needs further testing to make sure purchases aren't being skipped over. whatever.
         while (i >= 0) {
             while (PeriodUtil.periodToDays(purchases[i].date.until(currentObservedWeek)) > 7) {
                 currentObservedWeek = currentObservedWeek.minusWeeks(1)
