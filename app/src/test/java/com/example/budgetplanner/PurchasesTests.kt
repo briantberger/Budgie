@@ -169,4 +169,33 @@ class PurchasesTests {
             assertTrue(actual.containsKey(pair.key) && actual[pair.key] == pair.value)
         }
     }
+
+    @Test
+    fun getDailyBreakdown() {
+        val amazonPrimePurchase1 = Purchase("Amazon", BigDecimal("9.99"), LocalDate.parse("2024-01-03"))
+        val amazonPrimePurchase2 = Purchase("Amazon", BigDecimal("9.99"), LocalDate.parse("2024-01-02"))
+        val saveOnPurchase = Purchase("Save-On-Foods", BigDecimal("48.50"), LocalDate.parse("2023-12-25"))
+        val urbanFarePurchase = Purchase("Urban Fare", BigDecimal("21.50"), LocalDate.parse("2023-12-24"))
+
+        groceryPurchases.addPurchase(amazonPrimePurchase1)
+        groceryPurchases.addPurchase(amazonPrimePurchase2)
+        groceryPurchases.addPurchase(saveOnPurchase)
+        groceryPurchases.addPurchase(urbanFarePurchase)
+
+        val actual = groceryPurchases.getDailyTotals()
+        val expected = hashMapOf(
+            Pair<String, BigDecimal>("2024-01-03", BigDecimal("9.99")),
+            Pair<String, BigDecimal>("2024-01-02", BigDecimal("9.99")),
+            Pair<String, BigDecimal>("2023-12-25", BigDecimal("48.50")),
+            Pair<String, BigDecimal>("2023-12-24", BigDecimal("21.50")),
+        )
+
+        for (pair in expected) {
+            println(pair.key)
+            println(pair.value)
+            println(actual.keys)
+            assertTrue(actual.containsKey(pair.key) && actual[pair.key] == pair.value)
+        }
+
+    }
 }

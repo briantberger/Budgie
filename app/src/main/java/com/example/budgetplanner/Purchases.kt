@@ -59,7 +59,6 @@ class Purchases (
 
         while (i >= 0) {
             while (PeriodUtil.periodToDays(purchases[i].date.until(currentObservedWeek)) > 7) {
-                if (!weeklyTotals.containsKey(key)) weeklyTotals[key] = BigDecimal("0")
                 currentObservedWeek = currentObservedWeek.minusWeeks(1)
                 key = currentObservedWeek.toString()
             }
