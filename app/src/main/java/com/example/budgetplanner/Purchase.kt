@@ -1,12 +1,15 @@
 package com.example.budgetplanner
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import java.math.BigDecimal
 import java.time.LocalDate
 
-class Purchase(
+@RequiresApi(Build.VERSION_CODES.O)
+class Purchase constructor(
     val vendor: String,
     val price: BigDecimal,
-    val date: LocalDate
+    val date: LocalDate = LocalDate.now()
     ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

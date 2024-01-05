@@ -1,32 +1,33 @@
 package com.example.budgetplanner
 
+import android.os.Build
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
-import com.example.budgetplanner.databinding.ActivityMainBinding
+import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.android.synthetic.main.activity_main.btnAddPurchase
+import kotlinx.android.synthetic.main.activity_main.etPurchaseName
+import kotlinx.android.synthetic.main.activity_main.rvPurchases
+import java.math.BigDecimal
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
-
+    private lateinit var purchasesAdapter: PurchasesAdapter
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        purchasesAdapter = PurchasesAdapter(Purchases("Groceries"))
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        rvPurchases.adapter = purchasesAdapter
+        rvPurchases.layoutManager = LinearLayoutManager(this)
 
-        val navView: BottomNavigationView = binding.navView
-
-        val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        val appBarConfiguration = AppBarConfiguration(setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications))
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
+        btnAddPurchase.setOnClickListener {
+            val purchaseTitle = etPurchaseName.text.toString()
+            if (purchaseTitle.isNotEmpty()) {
+                val purchase = Purchase(purchaseTitle, BigDecimal("9.99"))
+                etPurchaseName.text.clear()
+            }
+        }
     }
 }

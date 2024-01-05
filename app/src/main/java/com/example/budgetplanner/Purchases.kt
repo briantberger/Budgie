@@ -9,7 +9,7 @@ import java.time.Period
 import kotlin.time.DurationUnit
 
 class Purchases (
-    val title: String,
+    val title: String = "",
     val purchases: ArrayList<Purchase> = ArrayList<Purchase>()
 ) {
 
