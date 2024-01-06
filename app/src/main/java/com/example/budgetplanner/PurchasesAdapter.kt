@@ -6,29 +6,26 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.android.synthetic.main.item_purchase.view.tvPurchaseAmount
-import kotlinx.android.synthetic.main.item_purchase.view.tvPurchaseTitle
+import com.example.budgetplanner.databinding.ItemPurchaseBinding
 
 class PurchasesAdapter(
     private val purchases: Purchases
 ) : RecyclerView.Adapter<PurchasesAdapter.PurchasesViewHolder>() {
-    class PurchasesViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    class PurchasesViewHolder(val binding: ItemPurchaseBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PurchasesViewHolder {
 
-        return PurchasesViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.item_purchase,
-                parent,
-                false
-            )
+        val binding = ItemPurchaseBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
         )
+        return PurchasesViewHolder(binding)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun addPurchase(purchase: Purchase) {
         purchases.addPurchase(purchase)
-//        notifyItemInserted(purchases.purchases.size - 1)
         notifyDataSetChanged()
     }
 
@@ -37,11 +34,11 @@ class PurchasesAdapter(
     }
 
     override fun onBindViewHolder(holder: PurchasesViewHolder, position: Int) {
-        val currPurchase = purchases.purchases[position]
-//        holder.itemView.apply{
-//            tvPurchaseTitle.text = currPurchase.vendor
-//            tvPurchaseAmount.text = currPurchase.price.toString()
-//        }
-        
+        with(holder){
+            with(purchases.purchases[position]){
+                binding.tvPurchaseAmount.text = price.toString()
+                binding.tvPurchaseTitle.text = vendor
+            }
+        }
     }
 }

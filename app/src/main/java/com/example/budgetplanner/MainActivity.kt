@@ -2,31 +2,39 @@ package com.example.budgetplanner
 
 import android.os.Build
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.activity_main.btnAddPurchase
-import kotlinx.android.synthetic.main.activity_main.etPurchaseName
-import kotlinx.android.synthetic.main.activity_main.rvPurchases
+import com.example.budgetplanner.databinding.ActivityMainBinding
+import com.example.budgetplanner.databinding.ItemPurchaseBinding
 import java.math.BigDecimal
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
     private lateinit var purchasesAdapter: PurchasesAdapter
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+
+        setContentView(view)
+
+
         purchasesAdapter = PurchasesAdapter(Purchases("Groceries"))
 
-        rvPurchases.adapter = purchasesAdapter
-        rvPurchases.layoutManager = LinearLayoutManager(this)
+        binding.rvPurchases.adapter = purchasesAdapter
+        binding.rvPurchases.layoutManager = LinearLayoutManager(this)
 
-        btnAddPurchase.setOnClickListener {
-            val purchaseTitle = etPurchaseName.text.toString()
+        binding.btnAddPurchase.setOnClickListener {
+            val purchaseTitle = binding.etPurchaseName.text.toString()
             if (purchaseTitle.isNotEmpty()) {
                 val purchase = Purchase(purchaseTitle, BigDecimal("9.99"))
-                etPurchaseName.text.clear()
+                binding.etPurchaseName.text.clear()
+                purchasesAdapter.addPurchase(purchase)
             }
         }
     }
