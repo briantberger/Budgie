@@ -13,47 +13,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" >
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:paddingRight="20dp"
-            android:paddingLeft="20dp"
-            >
-            <ImageView
-                android:id="@+id/header_image2"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:src="@drawable/damn_got_hands_meme"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="hello world!"/>
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:padding="20dp"
-            android:paddingLeft="20dp"
-            >
-            <ImageView
-                android:id="@+id/header_image3"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:src="@drawable/damn_got_hands_meme"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="hello world!"/>
-        </androidx.cardview.widget.CardView>
-
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
